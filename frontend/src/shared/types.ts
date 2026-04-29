@@ -1,0 +1,42 @@
+export type Role = "admin" | "employee";
+
+export interface Employee {
+  id: string;
+  name: string;
+  email: string;
+  role: Role;
+}
+
+export interface Review {
+  id: string;
+  employeeId: string;
+  title: string;
+  status: "open" | "closed";
+  reviewerIds: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** From GET /api/feedbacks — who gave feedback to whom (review subject = reviewee) */
+export interface FeedbackEnriched {
+  id: string;
+  reviewId: string;
+  reviewTitle: string;
+  reviewerId: string;
+  reviewerName: string;
+  reviewerEmail: string;
+  revieweeId: string;
+  revieweeName: string;
+  revieweeEmail: string;
+  comment: string;
+  rating: number;
+  createdAt: string;
+  updatedAt?: string;
+  reviewStatus: "open" | "closed";
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}

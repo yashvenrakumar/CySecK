@@ -1,0 +1,48 @@
+{
+  "employees": [
+    {
+      "id": "e1",
+      "name": "Alice Admin",
+      "email": "alice@company.com",
+      "role": "admin"
+    },
+    {
+      "id": "e2",
+      "name": "Ethan Employee",
+      "email": "ethan@company.com",
+      "role": "employee"
+    },
+    {
+      "id": "e3",
+      "name": "Emma Employee",
+      "email": "emma@company.com",
+      "role": "employee"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "r1",
+      "employeeId": "e2",
+      "title": "Q2 Performance Review",
+      "status": "open",
+      "reviewerIds": [
+        "e3"
+      ],
+      "createdAt": "2026-04-29T05:45:49.429Z",
+      "updatedAt": "2026-04-29T05:45:49.430Z"
+    },
+    {
+      "id": "a5a016ff-7c2b-4f49-8044-5ff7e42994b4",
+      "employeeId": "e1",
+      "title": "q2 review",
+      "status": "open",
+      "reviewerIds": [
+        "e2",
+        "e3"
+      ],
+      "createdAt": "2026-04-29T05:50:42.176Z",
+      "updatedAt": "2026-04-29T05:50:55.075Z"
+    }
+  ],
+  "feedbacks": []
+}

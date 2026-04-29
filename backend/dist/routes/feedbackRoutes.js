@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const feedbackController_1 = require("../controllers/feedbackController");
+const rbac_1 = require("../middleware/rbac");
+const validate_1 = require("../middleware/validate");
+const reviewValidation_1 = require("../validations/reviewValidation");
+const router = (0, express_1.Router)();
+router.get("/", (0, rbac_1.requireRole)(["admin", "employee"]), feedbackController_1.getFeedbacks);
+router.patch("/:id", (0, rbac_1.requireRole)(["employee", "admin"]), (0, validate_1.validateBody)(reviewValidation_1.feedbackUpdateSchema), feedbackController_1.patchFeedback);
+exports.default = router;

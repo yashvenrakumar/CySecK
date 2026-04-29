@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const reviewController_1 = require("../controllers/reviewController");
+const rbac_1 = require("../middleware/rbac");
+const validate_1 = require("../middleware/validate");
+const reviewValidation_1 = require("../validations/reviewValidation");
+const router = (0, express_1.Router)();
+router.get("/", reviewController_1.getReviews);
+router.post("/", (0, rbac_1.requireRole)(["admin"]), (0, validate_1.validateBody)(reviewValidation_1.createReviewSchema), reviewController_1.postReview);
+router.patch("/:id", (0, rbac_1.requireRole)(["admin"]), (0, validate_1.validateBody)(reviewValidation_1.updateReviewSchema), reviewController_1.patchReview);
+router.post("/:id/assign", (0, rbac_1.requireRole)(["admin"]), (0, validate_1.validateBody)(reviewValidation_1.assignReviewerSchema), reviewController_1.postAssignReviewer);
+router.get("/pending/:reviewerId", (0, rbac_1.requireRole)(["employee", "admin"]), reviewController_1.getPendingReviews);
+router.post("/:id/feedback", (0, rbac_1.requireRole)(["employee", "admin"]), (0, validate_1.validateBody)(reviewValidation_1.feedbackSchema), reviewController_1.postFeedback);
+exports.default = router;
