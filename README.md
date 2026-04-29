@@ -27,6 +27,12 @@ This submission implements the employee performance review portal requested in t
 - `frontend/src/hooks/*` exposes REST-aligned custom hooks; API origin is `frontend/.env` → `VITE_API_BASE_URL`.
 - `backend/src/*` follows MVC-like separation with middleware, validations, services, controllers, and routes.
 
+## Live Links
+
+- Frontend (Vercel): https://cy-sec-k.vercel.app/
+- Backend Swagger UI (Render): https://cyseck.onrender.com/api-docs/
+- GitHub Repo: https://github.com/yashvenrakumar/CySecK
+
 ## Run Locally
 
 ### 1) Start backend
