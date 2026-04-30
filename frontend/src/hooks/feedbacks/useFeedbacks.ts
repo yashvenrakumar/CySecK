@@ -2,44 +2,39 @@ import { useCallback, useState } from "react";
 import { api, withRole } from "../../shared/api/client";
 import type { ApiResponse, FeedbackEnriched } from "../../shared/types";
 
-type AsyncAction<T> = { unwrap: () => Promise<T> };
-const asAction = <T,>(promise: Promise<T>): AsyncAction<T> => ({ unwrap: () => promise });
-
 export function useFeedbacks() {
-  const [adminList, setAdminList] = useState<FeedbackEnriched[]>([]);
-  const [myList, setMyList] = useState<FeedbackEnriched[]>([]);
+  // two lists: admin sees all, employee page only "mine"
+  const [adminFeedbacks, setAdminFeedbacks] = useState<FeedbackEnriched[]>([]);
+  const [myFeedbacks, setMyFeedbacks] = useState<FeedbackEnriched[]>([]);
 
   const getAllFeedbacks = useCallback(() => {
-    const task = api.get<ApiResponse<FeedbackEnriched[]>>("/feedbacks", withRole("admin")).then((res) => {
-      const data = res.data?.data;
-      const rows = Array.isArray(data) ? (data as FeedbackEnriched[]) : [];
-      setAdminList(rows);
+    const p = api.get<ApiResponse<FeedbackEnriched[]>>("/feedbacks", withRole("admin")).then((res) => {
+      const list = res.data?.data;
+      const rows = Array.isArray(list) ? list : [];
+      setAdminFeedbacks(rows);
       return rows;
     });
-    return asAction(task);
+    return { unwrap: () => p };
   }, []);
 
-  const getFeedbacksForReviewer = useCallback(
-    (reviewerId: string) => {
-      const task = api
-        .get<ApiResponse<FeedbackEnriched[]>>("/feedbacks", {
-          ...withRole("employee"),
-          params: { reviewerId },
-        })
-        .then((res) => {
-          const data = res.data?.data;
-          const rows = Array.isArray(data) ? (data as FeedbackEnriched[]) : [];
-          setMyList(rows);
-          return rows;
-        });
-      return asAction(task);
-    },
-    [],
-  );
+  const getFeedbacksForReviewer = useCallback((reviewerId: string) => {
+    const p = api
+      .get<ApiResponse<FeedbackEnriched[]>>("/feedbacks", {
+        ...withRole("employee"),
+        params: { reviewerId },
+      })
+      .then((res) => {
+        const list = res.data?.data;
+        const rows = Array.isArray(list) ? list : [];
+        setMyFeedbacks(rows);
+        return rows;
+      });
+    return { unwrap: () => p };
+  }, []);
 
   return {
-    adminFeedbacks: adminList,
-    myFeedbacks: myList,
+    adminFeedbacks,
+    myFeedbacks,
     getAllFeedbacks,
     getFeedbacksForReviewer,
   };

@@ -3,7 +3,8 @@ import type { FormEvent } from "react";
 import { useEmployees } from "../../hooks";
 import type { Employee } from "../../shared/types";
 
-const AdminEmployeesPage = () => {
+// admin can add people, edit, delete, promote to admin
+function AdminEmployeesPage() {
   const { employees, getEmployees, postEmployee, patchEmployee, deleteEmployeeById } = useEmployees();
   const [employeeName, setEmployeeName] = useState("");
   const [employeeEmail, setEmployeeEmail] = useState("");
@@ -15,7 +16,7 @@ const AdminEmployeesPage = () => {
     void getEmployees().unwrap().catch(() => alert("Could not load employees list."));
   }, [getEmployees]);
 
-  const submitEmployee = async (e: FormEvent) => {
+  async function submitEmployee(e: FormEvent) {
     e.preventDefault();
     const name = employeeName.trim();
     const email = employeeEmail.trim().toLowerCase();
@@ -34,23 +35,23 @@ const AdminEmployeesPage = () => {
       await getEmployees().unwrap().catch(() => {});
       alert("Employee added");
     } catch {
-      alert("Could not add employee (duplicate email or server problem).");
+      alert("Could not add employee ");
     }
-  };
+  }
 
-  const startEdit = (emp: Employee) => {
+  function startEdit(emp: Employee) {
     setEditingId(emp.id);
     setEditName(emp.name);
     setEditEmail(emp.email);
-  };
+  }
 
-  const cancelEdit = () => {
+  function cancelEdit() {
     setEditingId(null);
     setEditName("");
     setEditEmail("");
-  };
+  }
 
-  const saveEdit = async () => {
+  async function saveEdit() {
     if (!editingId) return;
     const name = editName.trim();
     const email = editEmail.trim().toLowerCase();
@@ -67,34 +68,34 @@ const AdminEmployeesPage = () => {
       cancelEdit();
       alert("Employee updated");
     } catch {
-      alert("Could not save employee changes.");
+      alert("not save employee changes.");
     }
-  };
+  }
 
-  const handlePromote = async (id: string) => {
+  async function handlePromote(id: string) {
     try {
       await patchEmployee(id, { role: "admin" }, "admin").unwrap();
-      alert("Employee promoted to admin");
+      alert("Employee promoted ");
     } catch {
-      alert("Could not promote this person to admin.");
+      alert("  not promote this person to admin.");
     }
-  };
+  }
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm("Remove this employee from the directory?")) return;
+  async function handleDelete(id: string) {
+    if (!window.confirm("Remove this employee  ")) return;
     try {
       await deleteEmployeeById(id, "admin").unwrap();
       if (editingId === id) cancelEdit();
       alert("Employee removed");
     } catch {
-      alert("Could not remove employee from directory.");
+      alert("Could not remove employee  ");
     }
-  };
+  }
 
   return (
     <section className="page-card">
       <h1 className="page-title">employees</h1>
-      
+
       <h2 className="section-title">add employee</h2>
       <form onSubmit={submitEmployee} className="form-block">
         <input
@@ -135,11 +136,7 @@ const AdminEmployeesPage = () => {
                   aria-label="Edit email"
                 />
                 <div className="row-gap-2">
-                  <button
-                    type="button"
-                    className="btn-dark btn-small"
-                    onClick={() => void saveEdit()}
-                  >
+                  <button type="button" className="btn-dark btn-small" onClick={() => void saveEdit()}>
                     Save
                   </button>
                   <button type="button" className="btn-outline btn-small" onClick={cancelEdit}>
@@ -151,33 +148,20 @@ const AdminEmployeesPage = () => {
               <div className="row-split">
                 <div>
                   <div className="row-name">
-                    {employee.name}{" "}
-                    <span className="row-role">({employee.role})</span>
+                    {employee.name} <span className="row-role">({employee.role})</span>
                   </div>
                   <div className="row-email">{employee.email}</div>
                 </div>
                 <div className="row-buttons">
-                  <button
-                    type="button"
-                    className="btn-outline btn-tiny"
-                    onClick={() => startEdit(employee)}
-                  >
+                  <button type="button" className="btn-outline btn-tiny" onClick={() => startEdit(employee)}>
                     Edit
                   </button>
                   {employee.role === "employee" && (
-                    <button
-                      type="button"
-                      className="btn-amber btn-tiny"
-                      onClick={() => void handlePromote(employee.id)}
-                    >
+                    <button type="button" className="btn-amber btn-tiny" onClick={() => void handlePromote(employee.id)}>
                       Promote to admin
                     </button>
                   )}
-                  <button
-                    type="button"
-                    className="btn-rose btn-tiny"
-                    onClick={() => void handleDelete(employee.id)}
-                  >
+                  <button type="button" className="btn-rose btn-tiny" onClick={() => void handleDelete(employee.id)}>
                     Remove
                   </button>
                 </div>
@@ -188,6 +172,6 @@ const AdminEmployeesPage = () => {
       </ul>
     </section>
   );
-};
+}
 
 export default AdminEmployeesPage;

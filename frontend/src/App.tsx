@@ -6,18 +6,21 @@ import AdminReviewsPage from "./pages/admin/AdminReviewsPage";
 import EmployeePage from "./pages/employee/EmployeePage";
 import "./App.css";
 
-const App = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route element={<AppLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="admin/employees" element={<AdminEmployeesPage />} />
-        <Route path="admin/reviews" element={<AdminReviewsPage />} />
-        <Route path="employee" element={<EmployeePage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Route>
-    </Routes>
-  </BrowserRouter>
-);
+// top level routes — star route sends unknown urls to home
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="admin/employees" element={<AdminEmployeesPage />} />
+          <Route path="admin/reviews" element={<AdminReviewsPage />} />
+          <Route path="employee" element={<EmployeePage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
 
 export default App;

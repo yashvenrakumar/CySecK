@@ -2,10 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useEmployees, useFeedbacks, useReviews } from "../../hooks";
 
-const AdminReviewsPage = () => {
+// reviews + assign peers + table of all feedbacks for admin
+function AdminReviewsPage() {
   const { employees, getEmployees } = useEmployees();
   const { adminFeedbacks, getAllFeedbacks } = useFeedbacks();
   const { reviews, getReviews, postReview, postReviewAssign, patchReview } = useReviews();
+
   const [reviewTitle, setReviewTitle] = useState("");
   const [reviewEmployeeId, setReviewEmployeeId] = useState("");
   const [assignReviewId, setAssignReviewId] = useState("");
@@ -16,20 +18,22 @@ const AdminReviewsPage = () => {
     [reviews, assignReviewId],
   );
 
-   const assignReviewerOptions = useMemo(() => {
+  // cant assign the review subject as there own reviewer
+  const assignReviewerOptions = useMemo(() => {
     const subjectId = selectedReview?.employeeId;
     if (!subjectId) return employees;
     return employees.filter((e) => e.id !== subjectId);
   }, [employees, selectedReview?.employeeId]);
 
-  const loadAdminData = () => {
-    void getEmployees().unwrap().catch(() => alert("Could not load employees."));
-    void getReviews().unwrap().catch(() => alert("Could not load reviews."));
-    void getAllFeedbacks().unwrap().catch(() => alert("Could not load feedback log."));
-  };
+  function loadAdminData() {
+    void getEmployees().unwrap().catch(() => alert("Could not load employees"));
+    void getReviews().unwrap().catch(() => alert("Could not load reviews"));
+    void getAllFeedbacks().unwrap().catch(() => alert("Could not load feedback log"));
+  }
 
   useEffect(() => {
     loadAdminData();
+    // eslint thinks loadAdminData should be in deps but then it refires to much — leaving as is
   }, [getEmployees, getReviews, getAllFeedbacks]);
 
   useEffect(() => {
@@ -45,13 +49,13 @@ const AdminReviewsPage = () => {
     }
   }, [assignReviewerId, assignReviewerOptions]);
 
-  const refreshAdminData = () => {
+  function refreshAdminData() {
     void getEmployees().unwrap().catch(() => {});
     void getReviews().unwrap().catch(() => {});
     void getAllFeedbacks().unwrap().catch(() => {});
-  };
+  }
 
-  const submitReview = async (e: FormEvent) => {
+  async function submitReview(e: FormEvent) {
     e.preventDefault();
     const title = reviewTitle.trim();
     if (!reviewEmployeeId) {
@@ -79,9 +83,9 @@ const AdminReviewsPage = () => {
     } catch {
       alert("Could not create review.");
     }
-  };
+  }
 
-  const submitAssign = async (e: FormEvent) => {
+  async function submitAssign(e: FormEvent) {
     e.preventDefault();
     if (!assignReviewId || !assignReviewerId) {
       alert("Select both a review and a reviewer.");
@@ -99,9 +103,9 @@ const AdminReviewsPage = () => {
     } catch {
       alert("Could not assign reviewer (check they exist in directory).");
     }
-  };
+  }
 
-  const toggleStatus = async (id: string, currentlyOpen: boolean) => {
+  async function toggleStatus(id: string, currentlyOpen: boolean) {
     try {
       await patchReview(id, currentlyOpen ? "closed" : "open", "admin").unwrap();
       alert(currentlyOpen ? "Review closed" : "Review reopened");
@@ -109,12 +113,11 @@ const AdminReviewsPage = () => {
     } catch {
       alert("Could not change review open/closed status.");
     }
-  };
+  }
 
   return (
     <section className="page-card">
       <h1 className="page-title">Performance</h1>
-      
 
       <h2 className="section-title">New review</h2>
       <form onSubmit={submitReview} className="form-block">
@@ -146,7 +149,7 @@ const AdminReviewsPage = () => {
       </form>
 
       <h3 className="section-subtitle">Assign reviewer</h3>
-    
+
       <form onSubmit={submitAssign} className="form-block form-top-border">
         <select
           className="input-basic"
@@ -181,11 +184,7 @@ const AdminReviewsPage = () => {
             </option>
           ))}
         </select>
-        <button
-          type="submit"
-          className="btn-mid"
-          disabled={!assignReviewId || !assignReviewerId}
-        >
+        <button type="submit" className="btn-mid" disabled={!assignReviewId || !assignReviewerId}>
           Assign reviewer
         </button>
       </form>
@@ -203,19 +202,13 @@ const AdminReviewsPage = () => {
                   <div className="row-email">
                     About: <span className="row-name-inline">{subject?.name ?? r.employeeId}</span>
                     {subject?.email ? ` · ${subject.email}` : ""} ·{" "}
-                    <span className={open ? "text-open" : "text-closed"}>
-                      {open ? "Open" : "Closed"}
-                    </span>
+                    <span className={open ? "text-open" : "text-closed"}>{open ? "Open" : "Closed"}</span>
                     {r.reviewerIds.length > 0 && (
                       <span className="text-muted"> · {r.reviewerIds.length} reviewer(s)</span>
                     )}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="btn-light btn-tiny"
-                  onClick={() => void toggleStatus(r.id, open)}
-                >
+                <button type="button" className="btn-light btn-tiny" onClick={() => void toggleStatus(r.id, open)}>
                   {open ? "Close review" : "Reopen review"}
                 </button>
               </div>
@@ -224,8 +217,8 @@ const AdminReviewsPage = () => {
         })}
       </ul>
 
-      <h3 className="section-subtitle">Feedback log  </h3>
-      
+      <h3 className="section-subtitle">Feedback log </h3>
+
       {adminFeedbacks.length === 0 ? (
         <p className="empty-note">No feedback submitted</p>
       ) : (
@@ -271,6 +264,6 @@ const AdminReviewsPage = () => {
       )}
     </section>
   );
-};
+}
 
 export default AdminReviewsPage;

@@ -2,24 +2,26 @@ import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useEmployees, useFeedbacks, useReviews } from "../../hooks";
 
+// pick yourself from list, then fill feedback for a assigned review
 const COMMENT_MIN = 2;
 
-const EmployeePage = () => {
+function EmployeePage() {
   const [employeeId, setEmployeeId] = useState("");
-  const { employees, getEmployees } = useEmployees();
-  const { myFeedbacks, getFeedbacksForReviewer } = useFeedbacks();
-  const { pendingReviews, getPendingReviews, postReviewFeedback } = useReviews();
-   const [selectedReviewId, setSelectedReviewId] = useState("");
+  const [selectedReviewId, setSelectedReviewId] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
 
-   const employeeOptions = useMemo(() => employees, [employees]);
+  const { employees, getEmployees } = useEmployees();
+  const { myFeedbacks, getFeedbacksForReviewer } = useFeedbacks();
+  const { pendingReviews, getPendingReviews, postReviewFeedback } = useReviews();
+
   const currentUser = useMemo(() => employees.find((e) => e.id === employeeId), [employees, employeeId]);
 
   const selectedReview = useMemo(
     () => pendingReviews.find((r) => r.id === selectedReviewId),
     [pendingReviews, selectedReviewId],
   );
+
   const revieweeForSelected = useMemo(
     () => (selectedReview ? employees.find((e) => e.id === selectedReview.employeeId) : undefined),
     [employees, selectedReview],
@@ -31,6 +33,7 @@ const EmployeePage = () => {
       .catch(() => alert("Could not load employees. Check the API and VITE_API_BASE_URL."));
   }, [getEmployees]);
 
+  // if directory reloads and my id vanished, reset picks
   useEffect(() => {
     if (!employeeId || employees.length === 0) return;
     if (!employees.some((e) => e.id === employeeId)) {
@@ -46,14 +49,14 @@ const EmployeePage = () => {
     void getFeedbacksForReviewer(employeeId);
   }, [getPendingReviews, getFeedbacksForReviewer, employeeId]);
 
-   useEffect(() => {
+  useEffect(() => {
     if (!selectedReviewId) return;
     if (!pendingReviews.some((r) => r.id === selectedReviewId)) {
       setSelectedReviewId("");
     }
   }, [pendingReviews, selectedReviewId]);
 
-  const submitFeedback = async (e: FormEvent) => {
+  async function submitFeedback(e: FormEvent) {
     e.preventDefault();
 
     if (!employeeId) {
@@ -94,14 +97,13 @@ const EmployeePage = () => {
     } catch {
       alert("Could not submit feedback. Review may be closed or network failed.");
     }
-  };
+  }
 
   const formEnabled = Boolean(employeeId && selectedReviewId);
 
   return (
     <section className="page-card">
       <h1 className="page-title">feedback</h1>
-     
 
       <div className="panel-soft">
         <div>
@@ -120,15 +122,13 @@ const EmployeePage = () => {
             }}
           >
             <option value="">— Select current</option>
-            {employeeOptions.map((emp) => (
+            {employees.map((emp) => (
               <option key={emp.id} value={emp.id}>
                 {emp.name} — {emp.email}
               </option>
             ))}
           </select>
-          {employees.length === 0 && (
-            <p className="small-note">Loading</p>
-          )}
+          {employees.length === 0 && <p className="small-note">Loading</p>}
         </div>
 
         <div>
@@ -153,9 +153,7 @@ const EmployeePage = () => {
             })}
           </select>
           {!employeeId && <p className="small-note">Select yourself</p>}
-          {employeeId && pendingReviews.length === 0 && (
-            <p className="small-note">Ask admin to assign</p>
-          )}
+          {employeeId && pendingReviews.length === 0 && <p className="small-note">Ask admin to assign</p>}
           {employeeId && selectedReview && revieweeForSelected && (
             <p className="small-note text-open">
               About: <strong>{revieweeForSelected.name}</strong>
@@ -186,7 +184,7 @@ const EmployeePage = () => {
 
       <h2 className="section-title">Pending</h2>
       {!employeeId ? (
-        <p className="empty-note">Select yourself   </p>
+        <p className="empty-note">Select yourself </p>
       ) : pendingReviews.length === 0 ? (
         <p className="empty-note">No pending review</p>
       ) : (
@@ -197,8 +195,7 @@ const EmployeePage = () => {
               <li key={review.id} className="list-row-card">
                 <div className="row-name">{review.title}</div>
                 <div className="row-email">
-                  About:{" "}
-                  <span className="row-name-inline">{about?.name ?? review.employeeId}</span>
+                  About: <span className="row-name-inline">{about?.name ?? review.employeeId}</span>
                   {about?.email ? <span> · {about.email}</span> : null}
                 </div>
               </li>
@@ -210,9 +207,7 @@ const EmployeePage = () => {
       {employeeId && (
         <div className="panel-top-border">
           <h2 className="section-title">submitted</h2>
-          <p className="page-subtitle">
-            You ({currentUser?.name ?? "…"}) gave  feedback.
-          </p>
+          <p className="page-subtitle">You ({currentUser?.name ?? "…"}) gave feedback.</p>
           {myFeedbacks.length === 0 ? (
             <p className="empty-note">No submissions </p>
           ) : (
@@ -285,16 +280,12 @@ const EmployeePage = () => {
             )}
           </div>
         </div>
-        <button
-          type="submit"
-          className="btn-dark"
-          disabled={!formEnabled}
-        >
+        <button type="submit" className="btn-dark" disabled={!formEnabled}>
           Submit Feedback
         </button>
       </form>
     </section>
   );
-};
+}
 
 export default EmployeePage;

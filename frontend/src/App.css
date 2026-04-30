@@ -1,56 +1,233 @@
-.page-card { padding: 16px; }
-.page-title { margin: 0 0 4px; font-size: 23px; font-weight: 700; }
-.page-subtitle { margin: 0 0 14px; font-size: 14px; }
-.section-title { margin: 0 0 10px; font-size: 19px; font-weight: 600; }
-.section-subtitle { margin: 0 0 8px; font-size: 14px; font-weight: 600; }
-.section-caption { margin: 18px 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
-.small-note { margin: 6px 0 0; font-size: 12px; }
-.empty-note { margin: 8px 0 14px; font-size: 14px; }
-.label-small { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 600; }
-.label-main { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 600; }
+/* classes used by admin + employee pages (not homepage, that ones inline) */
 
-.form-block { max-width: 620px; margin-bottom: 20px; display: grid; gap: 8px; }
-.form-top-border { padding-top: 14px; }
-.input-basic { width: 100%; box-sizing: border-box; border: none; padding: 8px 10px; font-size: 14px; }
-.input-basic:disabled { opacity: 0.6; }
-.input-max { max-width: 640px; }
-.textarea-basic { min-height: 100px; resize: vertical; }
+.page-card {
+  padding: 16px;
+}
+.page-title {
+  margin: 0 0 4px;
+  font-size: 23px;
+  font-weight: 700;
+}
+.page-subtitle {
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+.section-title {
+  margin: 0 0 10px;
+  font-size: 19px;
+  font-weight: 600;
+}
+.section-subtitle {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.section-caption {
+  margin: 18px 0 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.small-note {
+  margin: 6px 0 0;
+  font-size: 12px;
+}
+.empty-note {
+  margin: 8px 0 14px;
+  font-size: 14px;
+}
+.label-small {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.label-main {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
 
-.btn-dark { border: none; padding: 8px 12px; width: fit-content; cursor: pointer; }
-.btn-dark:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-mid { border: none; padding: 8px 12px; width: fit-content; cursor: pointer; }
-.btn-mid:disabled { opacity: 0.5; cursor: not-allowed; }
-.btn-outline { border: none; padding: 8px 10px; cursor: pointer; }
-.btn-light { border: none; padding: 6px 10px; cursor: pointer; }
-.btn-amber { border: none; padding: 6px 10px; cursor: pointer; }
-.btn-rose { border: none; padding: 6px 10px; cursor: pointer; }
-.btn-small { font-size: 12px; padding: 6px 10px; }
-.btn-tiny { font-size: 12px; padding: 4px 8px; font-weight: 600; }
+.form-block {
+  max-width: 620px;
+  margin-bottom: 20px;
+  display: grid;
+  gap: 8px;
+}
+.form-top-border {
+  padding-top: 14px;
+}
+.input-basic {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  padding: 8px 10px;
+  font-size: 14px;
+}
+.input-basic:disabled {
+  opacity: 0.6;
+}
+.input-max {
+  max-width: 640px;
+}
+.textarea-basic {
+  min-height: 100px;
+  resize: vertical;
+}
 
-.list-basic { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 8px; }
-.list-row-card { padding: 10px; }
-.row-split { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
-.row-gap-2 { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.row-buttons { display: flex; flex-wrap: wrap; gap: 8px; }
-.stack-2 { display: grid; gap: 8px; }
-.stack-1 { display: grid; gap: 6px; }
+.btn-dark {
+  border: none;
+  padding: 8px 12px;
+  width: fit-content;
+  cursor: pointer;
+}
+.btn-dark:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-mid {
+  border: none;
+  padding: 8px 12px;
+  width: fit-content;
+  cursor: pointer;
+}
+.btn-mid:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.btn-outline {
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+.btn-light {
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.btn-amber {
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.btn-rose {
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.btn-small {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+.btn-tiny {
+  font-size: 12px;
+  padding: 4px 8px;
+  font-weight: 600;
+}
 
-.row-name { font-weight: 600; }
-.row-name-inline { font-weight: 600; }
-.row-role { font-weight: 400; }
-.row-email { margin-top: 2px; font-size: 12px; }
-.text-muted { font-size: 12px; }
-.text-open { text-decoration: underline; }
-.text-closed { opacity: 0.8; }
+.list-basic {
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.list-row-card {
+  padding: 10px;
+}
+.row-split {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.row-gap-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.row-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.stack-2 {
+  display: grid;
+  gap: 8px;
+}
+.stack-1 {
+  display: grid;
+  gap: 6px;
+}
 
-.table-wrap { overflow-x: auto; }
-.table-basic { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 14px; }
-.table-medium { min-width: 520px; }
-.table-head th { text-transform: uppercase; font-size: 11px; text-align: left; padding: 8px 10px; }
-.table-basic tbody td { padding: 8px 10px; vertical-align: top; }
-.cell-comment { max-width: 240px; word-break: break-word; }
-.cell-time { white-space: nowrap; font-size: 12px; }
+.row-name {
+  font-weight: 600;
+}
+.row-name-inline {
+  font-weight: 600;
+}
+.row-role {
+  font-weight: 400;
+}
+.row-email {
+  margin-top: 2px;
+  font-size: 12px;
+}
+.text-muted {
+  font-size: 12px;
+}
+.text-open {
+  text-decoration: underline;
+}
+.text-closed {
+  opacity: 0.8;
+}
 
-.panel-soft { margin-bottom: 18px; padding: 14px; display: grid; gap: 14px; }
-.panel-green { padding: 8px 10px; font-size: 12px; }
-.panel-top-border { margin-bottom: 18px; padding-top: 14px; }
+.table-wrap {
+  overflow-x: auto;
+}
+.table-basic {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.table-medium {
+  min-width: 520px;
+}
+.table-head th {
+  text-transform: uppercase;
+  font-size: 11px;
+  text-align: left;
+  padding: 8px 10px;
+}
+.table-basic tbody td {
+  padding: 8px 10px;
+  vertical-align: top;
+}
+.cell-comment {
+  max-width: 240px;
+  word-break: break-word;
+}
+.cell-time {
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.panel-soft {
+  margin-bottom: 18px;
+  padding: 14px;
+  display: grid;
+  gap: 14px;
+}
+.panel-green {
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.panel-top-border {
+  margin-bottom: 18px;
+  padding-top: 14px;
+}
