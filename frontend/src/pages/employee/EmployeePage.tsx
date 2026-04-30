@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useEmployees, useFeedbacks, useReviews } from "../../hooks";
 
-// pick yourself from list, then fill feedback for a assigned review
 const COMMENT_MIN = 2;
 
 function EmployeePage() {
@@ -33,7 +32,6 @@ function EmployeePage() {
       .catch(() => alert("Could not load employees. Check the API and VITE_API_BASE_URL."));
   }, [getEmployees]);
 
-  // if directory reloads and my id vanished, reset picks
   useEffect(() => {
     if (!employeeId || employees.length === 0) return;
     if (!employees.some((e) => e.id === employeeId)) {
@@ -60,11 +58,11 @@ function EmployeePage() {
     e.preventDefault();
 
     if (!employeeId) {
-      alert("Select who is giving feedback (you).");
+      alert("Select who is giving feedback ");
       return;
     }
     if (!selectedReviewId || !selectedReview) {
-      alert(pendingReviews.length === 0 ? "No review assigned to you yet." : "Select a review from the list.");
+      alert(pendingReviews.length === 0 ? "No review assigned to you " : "Select a review from the list");
       return;
     }
     if (selectedReview.employeeId === employeeId) {
@@ -73,11 +71,11 @@ function EmployeePage() {
     }
     const trimmed = comment.trim();
     if (trimmed.length < COMMENT_MIN) {
-      alert(`Comment must be at least ${COMMENT_MIN} characters.`);
+      alert(`  comment must be at least ${COMMENT_MIN} char`);
       return;
     }
     if (rating < 1 || rating > 5) {
-      alert("Choose a rating from 1 to 5 stars.");
+      alert("Choose a rating from 1 to 5 stars");
       return;
     }
 
@@ -95,7 +93,7 @@ function EmployeePage() {
       void getPendingReviews(employeeId);
       alert("Feedback submitted");
     } catch {
-      alert("Could not submit feedback. Review may be closed or network failed.");
+      alert("cann not submit feedback. Review may be closed or network failed");
     }
   }
 
@@ -140,7 +138,7 @@ function EmployeePage() {
             disabled={!employeeId || pendingReviews.length === 0}
           >
             <option value="">
-              {pendingReviews.length === 0 ? "— No open reviews for you —" : "— Choose a review —"}
+              {pendingReviews.length === 0 ? "No open reviews for you " : "choose a review "}
             </option>
             {pendingReviews.map((r) => {
               const about = employees.find((e) => e.id === r.employeeId);
@@ -153,7 +151,7 @@ function EmployeePage() {
             })}
           </select>
           {!employeeId && <p className="small-note">Select yourself</p>}
-          {employeeId && pendingReviews.length === 0 && <p className="small-note">Ask admin to assign</p>}
+          {employeeId && pendingReviews.length === 0 && <p className="small-note">Ask admin assign</p>}
           {employeeId && selectedReview && revieweeForSelected && (
             <p className="small-note text-open">
               About: <strong>{revieweeForSelected.name}</strong>
@@ -186,7 +184,7 @@ function EmployeePage() {
       {!employeeId ? (
         <p className="empty-note">Select yourself </p>
       ) : pendingReviews.length === 0 ? (
-        <p className="empty-note">No pending review</p>
+        <p className="empty-note">No pending</p>
       ) : (
         <ul className="list-basic">
           {pendingReviews.map((review) => {
@@ -207,9 +205,9 @@ function EmployeePage() {
       {employeeId && (
         <div className="panel-top-border">
           <h2 className="section-title">submitted</h2>
-          <p className="page-subtitle">You ({currentUser?.name ?? "…"}) gave feedback.</p>
+          <p className="page-subtitle">You ({currentUser?.name ?? "…"}) gave feedback</p>
           {myFeedbacks.length === 0 ? (
-            <p className="empty-note">No submissions </p>
+            <p className="empty-note">  No submissions </p>
           ) : (
             <div className="table-wrap">
               <table className="table-basic table-medium">
@@ -246,7 +244,7 @@ function EmployeePage() {
       )}
 
       <form onSubmit={submitFeedback} className="form-block form-top-border">
-        <h3 className="section-subtitle">Submit feedback</h3>
+        <h3 className="section-subtitle">Submit</h3>
         <label className="label-main" htmlFor="feedback-comment">
           Comment
         </label>

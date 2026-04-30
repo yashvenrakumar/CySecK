@@ -3,7 +3,6 @@ import type { FormEvent } from "react";
 import { useEmployees } from "../../hooks";
 import type { Employee } from "../../shared/types";
 
-// admin can add people, edit, delete, promote to admin
 function AdminEmployeesPage() {
   const { employees, getEmployees, postEmployee, patchEmployee, deleteEmployeeById } = useEmployees();
   const [employeeName, setEmployeeName] = useState("");
@@ -13,7 +12,7 @@ function AdminEmployeesPage() {
   const [editEmail, setEditEmail] = useState("");
 
   useEffect(() => {
-    void getEmployees().unwrap().catch(() => alert("Could not load employees list."));
+    void getEmployees().unwrap().catch(() => alert(" can not load employees list."));
   }, [getEmployees]);
 
   async function submitEmployee(e: FormEvent) {
@@ -21,11 +20,11 @@ function AdminEmployeesPage() {
     const name = employeeName.trim();
     const email = employeeEmail.trim().toLowerCase();
     if (name.length < 2) {
-      alert("Name must at least 2 char");
+      alert("Name must least 2 char");
       return;
     }
     if (!email || !email.includes("@")) {
-      alert("Enter a valid email.");
+      alert("Enter valid email");
       return;
     }
     try {
@@ -33,9 +32,9 @@ function AdminEmployeesPage() {
       setEmployeeName("");
       setEmployeeEmail("");
       await getEmployees().unwrap().catch(() => {});
-      alert("Employee added");
+      alert("employee added");
     } catch {
-      alert("Could not add employee ");
+      alert("can not add employee ");
     }
   }
 
@@ -56,7 +55,7 @@ function AdminEmployeesPage() {
     const name = editName.trim();
     const email = editEmail.trim().toLowerCase();
     if (name.length < 2) {
-      alert("Name must be at least 2 characters.");
+      alert("Name must   least 2 char");
       return;
     }
     if (!email || !email.includes("@")) {
@@ -75,20 +74,20 @@ function AdminEmployeesPage() {
   async function handlePromote(id: string) {
     try {
       await patchEmployee(id, { role: "admin" }, "admin").unwrap();
-      alert("Employee promoted ");
+      alert("employee promoted ");
     } catch {
-      alert("  not promote this person to admin.");
+      alert("  not promote this person to adminm");
     }
   }
 
   async function handleDelete(id: string) {
-    if (!window.confirm("Remove this employee  ")) return;
+    if (!window.confirm("Remove this employeee  ")) return;
     try {
       await deleteEmployeeById(id, "admin").unwrap();
       if (editingId === id) cancelEdit();
-      alert("Employee removed");
+      alert("employee removeded");
     } catch {
-      alert("Could not remove employee  ");
+      alert("C    not remove employee  ");
     }
   }
 

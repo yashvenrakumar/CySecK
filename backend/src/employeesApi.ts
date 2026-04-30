@@ -16,9 +16,9 @@ router.get("/", (_req, res) => {
 });
 
 router.post("/", (req, res) => {
-  if (notAdmin(req.userRole)) return res.status(403).json(fail("Forbidden: insufficient permissions"));
+  if (notAdmin(req.userRole)) return res.status(403).json(fail("Forbidden: insuficient permission"));
   const body = req.body as Partial<Employee>;
-  if (badName(body?.name)) return res.status(400).json(fail("Name must be at least 2 characters"));
+  if (badName(body?.name)) return res.status(400).json(fail("Name must be atleat 2 characters"));
   if (badEmail(body?.email)) return res.status(400).json(fail("Invalid email"));
   const db = readDb();
   const employee: Employee = {
@@ -33,14 +33,14 @@ router.post("/", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
-  if (notAdmin(req.userRole)) return res.status(403).json(fail("Forbidden: insufficient permissions"));
+  if (notAdmin(req.userRole)) return res.status(403).json(fail("Forbidden: insuficient permission"));
   const id = String(req.params.id);
   const db = readDb();
   const index = db.employees.findIndex((e) => e.id === id);
   if (index === -1) return res.status(404).json(fail("Employee not found"));
   const body = req.body as Partial<Employee>;
   if (body.name !== undefined && badName(body.name)) {
-    return res.status(400).json(fail("Name must be at least 2 characters"));
+    return res.status(400).json(fail("Name must be atleat 2 characters"));
   }
   if (body.email !== undefined && badEmail(body.email)) {
     return res.status(400).json(fail("Invalid email"));
@@ -56,7 +56,7 @@ router.patch("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  if (notAdmin(req.userRole)) return res.status(403).json(fail("Forbidden: insufficient permissions"));
+  if (notAdmin(req.userRole)) return res.status(403).json(fail("Forbidden: insuficient permission"));
   const id = String(req.params.id);
   const db = readDb();
   if (!db.employees.some((e) => e.id === id)) return res.status(404).json(fail("Employee not found"));

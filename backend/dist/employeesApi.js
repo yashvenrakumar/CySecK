@@ -18,10 +18,10 @@ router.get("/", (_req, res) => {
 });
 router.post("/", (req, res) => {
     if (notAdmin(req.userRole))
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     const body = req.body;
     if (badName(body?.name))
-        return res.status(400).json((0, apiResponse_1.fail)("Name must be at least 2 characters"));
+        return res.status(400).json((0, apiResponse_1.fail)("Name must be atleat 2 characters"));
     if (badEmail(body?.email))
         return res.status(400).json((0, apiResponse_1.fail)("Invalid email"));
     const db = (0, dbModel_1.readDb)();
@@ -37,7 +37,7 @@ router.post("/", (req, res) => {
 });
 router.patch("/:id", (req, res) => {
     if (notAdmin(req.userRole))
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     const id = String(req.params.id);
     const db = (0, dbModel_1.readDb)();
     const index = db.employees.findIndex((e) => e.id === id);
@@ -45,7 +45,7 @@ router.patch("/:id", (req, res) => {
         return res.status(404).json((0, apiResponse_1.fail)("Employee not found"));
     const body = req.body;
     if (body.name !== undefined && badName(body.name)) {
-        return res.status(400).json((0, apiResponse_1.fail)("Name must be at least 2 characters"));
+        return res.status(400).json((0, apiResponse_1.fail)("Name must be atleat 2 characters"));
     }
     if (body.email !== undefined && badEmail(body.email)) {
         return res.status(400).json((0, apiResponse_1.fail)("Invalid email"));
@@ -61,7 +61,7 @@ router.patch("/:id", (req, res) => {
 });
 router.delete("/:id", (req, res) => {
     if (notAdmin(req.userRole))
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     const id = String(req.params.id);
     const db = (0, dbModel_1.readDb)();
     if (!db.employees.some((e) => e.id === id))

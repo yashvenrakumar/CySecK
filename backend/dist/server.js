@@ -6,6 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const app_1 = __importDefault(require("./app"));
 const PORT = process.env.PORT || 4000;
 app_1.default.listen(PORT, () => {
-    // eslint-disable-next-line no-console
     console.log(`Backend running on http://localhost:${PORT}`);
 });

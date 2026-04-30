@@ -15,12 +15,12 @@ router.get("/", (_req, res) => {
 });
 router.post("/", (req, res) => {
     if (adminOnly(req.userRole))
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     const body = req.body;
     if (!body?.employeeId)
         return res.status(400).json((0, apiResponse_1.fail)("employeeId is required"));
     if (!body?.title || String(body.title).trim().length < 3)
-        return res.status(400).json((0, apiResponse_1.fail)("title must be at least 3 characters"));
+        return res.status(400).json((0, apiResponse_1.fail)("title must be atleast 3 characters"));
     const now = new Date().toISOString();
     const review = {
         id: crypto_1.default.randomUUID(),
@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
 });
 router.patch("/:id", (req, res) => {
     if (adminOnly(req.userRole))
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     const id = String(req.params.id);
     const db = (0, dbModel_1.readDb)();
     const idx = db.reviews.findIndex((r) => r.id === id);
@@ -51,7 +51,7 @@ router.patch("/:id", (req, res) => {
 });
 router.post("/:id/assign", (req, res) => {
     if (adminOnly(req.userRole))
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     const reviewId = String(req.params.id);
     const reviewerId = String(req.body?.reviewerId || "");
     if (!reviewerId)
@@ -74,7 +74,7 @@ router.post("/:id/assign", (req, res) => {
 });
 router.get("/pending/:reviewerId", (req, res) => {
     if (!employeeOrAdmin(req.userRole)) {
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     }
     const reviewerId = String(req.params.reviewerId);
     const db = (0, dbModel_1.readDb)();
@@ -84,7 +84,7 @@ router.get("/pending/:reviewerId", (req, res) => {
 });
 router.post("/:id/feedback", (req, res) => {
     if (!employeeOrAdmin(req.userRole)) {
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insufficient permissions"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: insuficient permission"));
     }
     const reviewId = String(req.params.id);
     const body = req.body;
@@ -92,7 +92,7 @@ router.post("/:id/feedback", (req, res) => {
         return res.status(400).json((0, apiResponse_1.fail)("reviewerId, comment and rating are required"));
     }
     if (String(body.comment).trim().length < 2)
-        return res.status(400).json((0, apiResponse_1.fail)("Comment must be at least 2 characters"));
+        return res.status(400).json((0, apiResponse_1.fail)("Comment must be atleast 2 characters"));
     if (body.rating < 1 || body.rating > 5)
         return res.status(400).json((0, apiResponse_1.fail)("Rating must be between 1 and 5"));
     const db = (0, dbModel_1.readDb)();

@@ -1,5 +1,3 @@
-// types matching what backend sends back (not 100% strict but good enought)
-
 export type Role = "admin" | "employee";
 
 export interface Employee {
@@ -36,7 +34,6 @@ export interface FeedbackEnriched {
   reviewStatus: "open" | "closed";
 }
 
-// standard json envelope from API
 export interface ApiResponse<T> {
   success: boolean;
   message: string;

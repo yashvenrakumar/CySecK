@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/", (req, res) => {
   if (req.userRole !== "admin" && req.userRole !== "employee") {
-    return res.status(403).json(fail("Forbidden: set x-role to admin or employee"));
+    return res.status(403).json(fail("Forbidden: set x-role to admin or employe"));
   }
   const reviewerId = typeof req.query.reviewerId === "string" ? req.query.reviewerId.trim() : "";
   if (req.userRole === "employee" && !reviewerId) {

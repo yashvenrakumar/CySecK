@@ -6,7 +6,6 @@ import AdminReviewsPage from "./pages/admin/AdminReviewsPage";
 import EmployeePage from "./pages/employee/EmployeePage";
 import "./App.css";
 
-// top level routes — star route sends unknown urls to home
 function App() {
   return (
     <BrowserRouter>

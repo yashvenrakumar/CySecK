@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useEmployees, useFeedbacks, useReviews } from "../../hooks";
 
-// reviews + assign peers + table of all feedbacks for admin
 function AdminReviewsPage() {
   const { employees, getEmployees } = useEmployees();
   const { adminFeedbacks, getAllFeedbacks } = useFeedbacks();
@@ -18,7 +17,6 @@ function AdminReviewsPage() {
     [reviews, assignReviewId],
   );
 
-  // cant assign the review subject as there own reviewer
   const assignReviewerOptions = useMemo(() => {
     const subjectId = selectedReview?.employeeId;
     if (!subjectId) return employees;
@@ -26,14 +24,13 @@ function AdminReviewsPage() {
   }, [employees, selectedReview?.employeeId]);
 
   function loadAdminData() {
-    void getEmployees().unwrap().catch(() => alert("Could not load employees"));
-    void getReviews().unwrap().catch(() => alert("Could not load reviews"));
-    void getAllFeedbacks().unwrap().catch(() => alert("Could not load feedback log"));
+    void getEmployees().unwrap().catch(() => alert("can not load employees"));
+    void getReviews().unwrap().catch(() => alert("can not load reviews"));
+    void getAllFeedbacks().unwrap().catch(() => alert("can not load feedback log"));
   }
 
   useEffect(() => {
     loadAdminData();
-    // eslint thinks loadAdminData should be in deps but then it refires to much — leaving as is
   }, [getEmployees, getReviews, getAllFeedbacks]);
 
   useEffect(() => {
@@ -59,11 +56,11 @@ function AdminReviewsPage() {
     e.preventDefault();
     const title = reviewTitle.trim();
     if (!reviewEmployeeId) {
-      alert("Choose whose performance review this is.");
+      alert("C hoose whose performance review this  ");
       return;
     }
     if (title.length < 3) {
-      alert("Review title must be at least 3 characters.");
+      alert("eeview title must   least 3 char");
       return;
     }
     try {
@@ -78,10 +75,10 @@ function AdminReviewsPage() {
       ).unwrap();
       setReviewTitle("");
       setReviewEmployeeId("");
-      alert("Review created (open). Assign reviewers next.");
+      alert("Review created  Assign reviewers next");
       refreshAdminData();
     } catch {
-      alert("Could not create review.");
+      alert("can not create review.");
     }
   }
 
@@ -92,7 +89,7 @@ function AdminReviewsPage() {
       return;
     }
     if (selectedReview && assignReviewerId === selectedReview.employeeId) {
-      alert("The person being reviewed cannot be their own peer reviewer.");
+      alert("The person being reviewed  ");
       return;
     }
     try {
@@ -101,7 +98,7 @@ function AdminReviewsPage() {
       alert("Reviewer assigned");
       refreshAdminData();
     } catch {
-      alert("Could not assign reviewer (check they exist in directory).");
+      alert("can not assign reviewer  ");
     }
   }
 
@@ -111,7 +108,7 @@ function AdminReviewsPage() {
       alert(currentlyOpen ? "Review closed" : "Review reopened");
       refreshAdminData();
     } catch {
-      alert("Could not change review open/closed status.");
+      alert("can not change review open/closed status");
     }
   }
 
@@ -176,7 +173,7 @@ function AdminReviewsPage() {
           disabled={!assignReviewId}
         >
           <option value="">
-            {!assignReviewId ? "Select a review first" : "Select reviewer (peer)"}
+            {!assignReviewId ? "Select review first" : "Select reviewer "}
           </option>
           {assignReviewerOptions.map((e) => (
             <option key={e.id} value={e.id}>
@@ -220,7 +217,7 @@ function AdminReviewsPage() {
       <h3 className="section-subtitle">Feedback log </h3>
 
       {adminFeedbacks.length === 0 ? (
-        <p className="empty-note">No feedback submitted</p>
+        <p className="empty-note">No feedback</p>
       ) : (
         <div className="table-wrap">
           <table className="table-basic">

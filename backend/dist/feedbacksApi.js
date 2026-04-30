@@ -6,7 +6,7 @@ const apiResponse_1 = require("./utils/apiResponse");
 const router = (0, express_1.Router)();
 router.get("/", (req, res) => {
     if (req.userRole !== "admin" && req.userRole !== "employee") {
-        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: set x-role to admin or employee"));
+        return res.status(403).json((0, apiResponse_1.fail)("Forbidden: set x-role to admin or employe"));
     }
     const reviewerId = typeof req.query.reviewerId === "string" ? req.query.reviewerId.trim() : "";
     if (req.userRole === "employee" && !reviewerId) {

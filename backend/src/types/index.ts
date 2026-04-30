@@ -31,7 +31,6 @@ export interface Feedback {
   rating: number;
   createdAt: string;
   updatedAt?: string;
-  /** Whether the linked review is still open (editing allowed only when open). */
   reviewStatus: "open" | "closed";
 }
 

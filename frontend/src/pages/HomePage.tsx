@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import type { CSSProperties } from "react";
 
-// home screen — two columns for admin stuff vs employee feedback
 const styles: Record<string, CSSProperties> = {
   wrap: { margin: "8px" },
   top: { marginBottom: "14px", marginLeft: "2px" },

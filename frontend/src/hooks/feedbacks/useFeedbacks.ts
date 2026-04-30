@@ -14,7 +14,6 @@ function roleHeaders(role: Role) {
 }
 
 export function useFeedbacks() {
-  // two lists: admin sees all, employee page only "mine"
   const [adminFeedbacks, setAdminFeedbacks] = useState<FeedbackEnriched[]>([]);
   const [myFeedbacks, setMyFeedbacks] = useState<FeedbackEnriched[]>([]);
 

@@ -1,7 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import type { CSSProperties } from "react";
 
-// nav is just text links, no fancy styling
 const navRow: CSSProperties = {
   display: "flex",
   gap: "8px",
@@ -39,7 +38,7 @@ export function AppLayout() {
           </NavLink>
           <NavLink
             to="/employee"
-            title="Submit peer feedback on reviews assigned to you"
+            title="Submit peer feedback on reviews assigned"
             style={({ isActive }) => activeLinkStyle(isActive)}
           >
             feedback
