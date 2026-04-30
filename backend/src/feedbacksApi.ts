@@ -1,10 +1,21 @@
-import { readDb } from "../models/dbModel";
-import { FeedbackEnriched } from "../types";
+import { Router } from "express";
+import { readDb } from "./models/dbModel";
+import { fail, ok } from "./utils/apiResponse";
 
-export const listFeedbacksEnriched = (filterReviewerId?: string): FeedbackEnriched[] => {
+const router = Router();
+
+router.get("/", (req, res) => {
+  if (req.userRole !== "admin" && req.userRole !== "employee") {
+    return res.status(403).json(fail("Forbidden: set x-role to admin or employee"));
+  }
+  const reviewerId = typeof req.query.reviewerId === "string" ? req.query.reviewerId.trim() : "";
+  if (req.userRole === "employee" && !reviewerId) {
+    return res.status(400).json(fail("Query parameter reviewerId is required"));
+  }
+
   const db = readDb();
   let rows = db.feedbacks;
-  if (filterReviewerId) rows = rows.filter((f) => f.reviewerId === filterReviewerId);
+  if (reviewerId) rows = rows.filter((f) => f.reviewerId === reviewerId);
 
   const mapped = rows.map((f) => {
     const review = db.reviews.find((r) => r.id === f.reviewId);
@@ -28,5 +39,9 @@ export const listFeedbacksEnriched = (filterReviewerId?: string): FeedbackEnrich
       reviewStatus: review?.status ?? "closed",
     };
   });
-  return mapped.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-};
+
+  mapped.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  res.json(ok("Feedbacks fetched", mapped));
+});
+
+export default router;
