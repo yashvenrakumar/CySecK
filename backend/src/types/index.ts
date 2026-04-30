@@ -17,8 +17,7 @@ export interface Feedback {
   updatedAt?: string;
 }
 
-/** Feedback row joined with review + people for display */
-export interface FeedbackEnriched {
+ export interface FeedbackEnriched {
   id: string;
   reviewId: string;
   reviewTitle: string;
