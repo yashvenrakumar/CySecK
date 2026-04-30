@@ -17,8 +17,7 @@ export interface Review {
   updatedAt: string;
 }
 
-/** From GET /api/feedbacks — who gave feedback to whom (review subject = reviewee) */
-export interface FeedbackEnriched {
+ export interface FeedbackEnriched {
   id: string;
   reviewId: string;
   reviewTitle: string;

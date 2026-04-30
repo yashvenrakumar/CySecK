@@ -1,41 +1,51 @@
-# CysecK Fullstack Developer Challenge
+# CysecK Challenge Submission
 
-This submission implements the employee performance review portal requested in the challenge with a runnable fullstack setup.
+Simple fullstack app for the employee feedback challenge.
 
-## Stack Used
+## Tech
 
-- Frontend: React + TypeScript + Vite + Redux Toolkit + Tailwind CSS + Material UI Icons + React Toastify
-- Backend: Node.js + Express + TypeScript in MVC style (`server`, `route`, `middleware`, `validation`, `controller`, `service`, `model`)
-- API docs: Swagger/OpenAPI at `/api-docs`
-- Data storage: JSON file CRUD at `backend/data/db.json`
+- Frontend: React + TypeScript + Vite
+- Backend: Node.js + Express + TypeScript
+- Storage: JSON file (`backend/data/db.json`)
 
-## Features Implemented
+## What is implemented
 
-- Admin view:
-  - Add/view/update/remove employees
-  - Add/view/update performance reviews
-  - Assign employees as reviewers for other employees' reviews
-- Employee view:
-  - List reviews requiring feedback
-  - Submit feedback
-- Standardized API response format across backend.
-- Basic RBAC using `x-role` header (`admin` / `employee`).
+### Admin pages
+- Add / edit / delete employees
+- Create reviews
+- Assign reviewers to a review
+- Open/close review status
+- View feedback log
 
-## Folder Structure
+### Employee page
+- View pending reviews assigned to them
+- Submit feedback (comment + rating)
+- View previously submitted feedback
 
-- `frontend/src/features/*` uses feature-based slices for employees/reviews/session.
-- `frontend/src/hooks/*` exposes REST-aligned custom hooks; API origin is `frontend/.env` → `VITE_API_BASE_URL`.
-- `backend/src/*` follows MVC-like separation with middleware, validations, services, controllers, and routes.
+## Main APIs used
 
-## Live Links
+- `GET /api/employees`
+- `POST /api/employees`
+- `PATCH /api/employees/:id`
+- `DELETE /api/employees/:id`
+- `GET /api/reviews`
+- `POST /api/reviews`
+- `PATCH /api/reviews/:id`
+- `POST /api/reviews/:id/assign`
+- `GET /api/reviews/pending/:reviewerId`
+- `POST /api/reviews/:id/feedback`
+- `GET /api/feedbacks`
 
-- Frontend (Vercel): https://cy-sec-k.vercel.app/
-- Backend Swagger UI (Render): https://cyseck.onrender.com/api-docs/
-- GitHub Repo: https://github.com/yashvenrakumar/CySecK
+## Assumptions
 
-## Run Locally
+- No login/auth flow was required, so role is passed through `x-role` header.
+- JSON file persistence is enough for challenge scope.
+- Reviews accept feedback only when status is `open`.
+- A reviewer cannot be the same person as the review subject.
 
-### 1) Start backend
+## Run locally
+
+### Backend
 
 ```bash
 cd backend
@@ -43,9 +53,7 @@ npm install
 npm run dev
 ```
 
-Backend runs at [http://localhost:4000](http://localhost:4000) and Swagger at [http://localhost:4000/api-docs](http://localhost:4000/api-docs).
-
-### 2) Start frontend
+### Frontend
 
 ```bash
 cd frontend
@@ -53,24 +61,5 @@ npm install
 npm run dev
 ```
 
-Frontend runs at [http://localhost:5173](http://localhost:5173). Copy `frontend/.env.example` to `frontend/.env` and set `VITE_API_BASE_URL` (default `http://localhost:4000`); the app calls `{VITE_API_BASE_URL}/api/...`.
-
-## Implemented API Endpoints (sample)
-
-- `GET /api/employees`
-- `POST /api/employees`
-- `PATCH /api/employees/:id`
-- `DELETE /api/employees/:id`
-- `GET /api/feedbacks` — admin: all; employee: `?reviewerId=` (each row includes reviewer + reviewee names/emails)
-- `GET /api/reviews`
-- `POST /api/reviews`
-- `PATCH /api/reviews/:id`
-- `POST /api/reviews/:id/assign`
-- `GET /api/reviews/pending/:reviewerId`
-- `POST /api/reviews/:id/feedback`
-
-## Assumptions
-
-- No full authentication required by prompt; role simulation is via `x-role` header from UI.
-- JSON file database is acceptable for this challenge scope.
-- Employee view: **My feedback** uses two dropdowns (reviewer + reviewee; reviewee excludes reviewer), validation, then submit against an assigned open review.
+Frontend: `http://localhost:5173`  
+Backend: `http://localhost:4000`

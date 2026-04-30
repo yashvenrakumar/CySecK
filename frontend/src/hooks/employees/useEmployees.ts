@@ -8,9 +8,7 @@ import {
 } from "../../features/employees/employeesSlice";
 import type { Employee, Role } from "../../shared/types";
 
-/**
- * REST: `GET/POST/PATCH/DELETE /api/employees`
- */
+ 
 export function useEmployees() {
   const dispatch = useAppDispatch();
   const employees = useAppSelector((s) => s.employees?.items ?? []);
@@ -36,13 +34,13 @@ export function useEmployees() {
 
   return {
     employees,
-    /** GET /api/employees */
+  
     getEmployees,
-    /** POST /api/employees */
+   
     postEmployee,
-    /** PATCH /api/employees/:id */
+   
     patchEmployee,
-    /** DELETE /api/employees/:id */
+  
     deleteEmployeeById,
   };
 }

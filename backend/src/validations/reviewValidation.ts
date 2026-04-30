@@ -15,9 +15,6 @@ export const feedbackSchema = z.object({
   rating: z.number().min(1).max(5),
 });
 
-/** Same shape as submit; used for PATCH /api/feedbacks/:id */
-export const feedbackUpdateSchema = feedbackSchema;
-
 export const assignReviewerSchema = z.object({
   reviewerId: z.string().min(1),
 });

@@ -20,19 +20,6 @@ export const fetchFeedbacksByReviewer = createAsyncThunk(
   },
 );
 
-export const patchMyFeedback = createAsyncThunk(
-  "feedbacks/patchMine",
-  async (payload: { feedbackId: string; reviewerId: string; comment: string; rating: number }) => {
-    const { feedbackId, reviewerId, comment, rating } = payload;
-    const res = await api.patch(
-      `/feedbacks/${feedbackId}`,
-      { reviewerId, comment, rating },
-      withRole("employee"),
-    );
-    return res.data?.data;
-  },
-);
-
 interface FeedbacksState {
   adminList: FeedbackEnriched[];
   myList: FeedbackEnriched[];

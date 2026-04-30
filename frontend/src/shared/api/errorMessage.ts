@@ -1,7 +1,6 @@
 import axios from "axios";
 
-/** Reads backend `{ message }` or axios message for toast text */
-export function apiErrorMessage(error: unknown, fallback = "Something went wrong"): string {
+ export function apiErrorMessage(error: unknown, fallback = "Something went wrong"): string {
   if (axios.isAxiosError(error)) {
     const data = error.response?.data as { message?: string } | undefined;
     if (data?.message && typeof data.message === "string") return data.message;

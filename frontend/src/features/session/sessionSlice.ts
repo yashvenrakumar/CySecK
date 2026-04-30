@@ -6,8 +6,7 @@ interface SessionState {
 }
 
 const initialState: SessionState = {
-  /** Set from first loaded employee on My feedback (avoids stale ids like "e3" vs UUID DB). */
-  employeeId: "",
+   employeeId: "",
 };
 
 const sessionSlice = createSlice({

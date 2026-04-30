@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.assignReviewerSchema = exports.feedbackUpdateSchema = exports.feedbackSchema = exports.updateReviewSchema = exports.createReviewSchema = void 0;
+exports.assignReviewerSchema = exports.feedbackSchema = exports.updateReviewSchema = exports.createReviewSchema = void 0;
 const zod_1 = require("zod");
 exports.createReviewSchema = zod_1.z.object({
     employeeId: zod_1.z.string().min(1),
@@ -14,8 +14,6 @@ exports.feedbackSchema = zod_1.z.object({
     comment: zod_1.z.string().min(2),
     rating: zod_1.z.number().min(1).max(5),
 });
-/** Same shape as submit; used for PATCH /api/feedbacks/:id */
-exports.feedbackUpdateSchema = exports.feedbackSchema;
 exports.assignReviewerSchema = zod_1.z.object({
     reviewerId: zod_1.z.string().min(1),
 });
