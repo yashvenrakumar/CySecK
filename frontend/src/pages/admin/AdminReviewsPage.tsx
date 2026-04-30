@@ -225,10 +225,8 @@ const AdminReviewsPage = () => {
         })}
       </ul>
 
-      <h3 className="section-subtitle">Feedback log (who → whom)</h3>
-      <p className="small-note">
-        <strong>From</strong> = who wrote feedback · <strong>To</strong> = employee whose review it is about.
-      </p>
+      <h3 className="section-subtitle">Feedback log  </h3>
+      
       {adminFeedbacks.length === 0 ? (
         <p className="empty-note">No feedback submitted yet.</p>
       ) : (

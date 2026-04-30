@@ -36,12 +36,10 @@
       "id": "r1",
       "employeeId": "e2",
       "title": "Q2 Performance Review",
-      "status": "open",
-      "reviewerIds": [
-        "e3"
-      ],
+      "status": "closed",
+      "reviewerIds": [],
       "createdAt": "2026-04-29T05:45:49.429Z",
-      "updatedAt": "2026-04-29T05:45:49.430Z"
+      "updatedAt": "2026-04-30T14:11:39.235Z"
     },
     {
       "id": "a5a016ff-7c2b-4f49-8044-5ff7e42994b4",

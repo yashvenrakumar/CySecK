@@ -27,8 +27,6 @@ const styles: Record<string, CSSProperties> = {
   },
   box: {
     background: "#fff",
-    border: "1px solid #d6dce5",
-    borderRadius: "4px",
   },
   adminBox: {
     padding: "17px 24px 13px 14px",
@@ -67,10 +65,8 @@ const styles: Record<string, CSSProperties> = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    border: "1px solid #cfd7e2",
     textDecoration: "none",
     color: "#263446",
-    borderRadius: "3px",
     padding: "10px 8px 10px 11px",
     background: "white",
   },

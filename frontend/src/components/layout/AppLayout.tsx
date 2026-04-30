@@ -17,7 +17,7 @@ const navBtnStyle: CSSProperties = {
 export const AppLayout = () => {
   return (
     <div>
-      <header style={{ borderBottom: "1px solid", padding: "10px 12px" }}>
+      <header style={{ padding: "10px 12px" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ marginBottom: "6px" }}>Cyseck</div>
           <nav style={navRowStyle} aria-label="Main navigation">
