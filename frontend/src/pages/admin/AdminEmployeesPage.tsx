@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { useEmployees } from "../../hooks";
-import { apiErrorMessage } from "../../shared/api/errorMessage";
 import type { Employee } from "../../shared/types";
 
 const AdminEmployeesPage = () => {
@@ -13,7 +12,7 @@ const AdminEmployeesPage = () => {
   const [editEmail, setEditEmail] = useState("");
 
   useEffect(() => {
-    void getEmployees().unwrap().catch((e) => alert(apiErrorMessage(e, "Could not load employees")));
+    void getEmployees().unwrap().catch(() => alert("Could not load employees list."));
   }, [getEmployees]);
 
   const submitEmployee = async (e: FormEvent) => {
@@ -34,8 +33,8 @@ const AdminEmployeesPage = () => {
       setEmployeeEmail("");
       await getEmployees().unwrap().catch(() => {});
       alert("Employee added");
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not add employee"));
+    } catch {
+      alert("Could not add employee (duplicate email or server problem).");
     }
   };
 
@@ -67,8 +66,8 @@ const AdminEmployeesPage = () => {
       await patchEmployee(editingId, { name, email }, "admin").unwrap();
       cancelEdit();
       alert("Employee updated");
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not update"));
+    } catch {
+      alert("Could not save employee changes.");
     }
   };
 
@@ -76,8 +75,8 @@ const AdminEmployeesPage = () => {
     try {
       await patchEmployee(id, { role: "admin" }, "admin").unwrap();
       alert("Employee promoted to admin");
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not promote"));
+    } catch {
+      alert("Could not promote this person to admin.");
     }
   };
 
@@ -87,8 +86,8 @@ const AdminEmployeesPage = () => {
       await deleteEmployeeById(id, "admin").unwrap();
       if (editingId === id) cancelEdit();
       alert("Employee removed");
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not remove"));
+    } catch {
+      alert("Could not remove employee from directory.");
     }
   };
 

@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useEmployees, useFeedbacks, useReviews } from "../../hooks";
-import { apiErrorMessage } from "../../shared/api/errorMessage";
 
 const COMMENT_MIN = 2;
 
@@ -92,8 +91,8 @@ const EmployeePage = () => {
       void getFeedbacksForReviewer(employeeId);
       void getPendingReviews(employeeId);
       alert("Feedback submitted");
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not submit feedback"));
+    } catch {
+      alert("Could not submit feedback. Review may be closed or network failed.");
     }
   };
 

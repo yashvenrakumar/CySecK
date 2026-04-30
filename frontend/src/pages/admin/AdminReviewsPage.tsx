@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useEmployees, useFeedbacks, useReviews } from "../../hooks";
-import { apiErrorMessage } from "../../shared/api/errorMessage";
 
 const AdminReviewsPage = () => {
   const { employees, getEmployees } = useEmployees();
@@ -24,9 +23,9 @@ const AdminReviewsPage = () => {
   }, [employees, selectedReview?.employeeId]);
 
   const loadAdminData = () => {
-    void getEmployees().unwrap().catch((e) => alert(apiErrorMessage(e, "Could not load employees")));
-    void getReviews().unwrap().catch((e) => alert(apiErrorMessage(e, "Could not load reviews")));
-    void getAllFeedbacks().unwrap().catch((e) => alert(apiErrorMessage(e, "Could not load feedback log")));
+    void getEmployees().unwrap().catch(() => alert("Could not load employees."));
+    void getReviews().unwrap().catch(() => alert("Could not load reviews."));
+    void getAllFeedbacks().unwrap().catch(() => alert("Could not load feedback log."));
   };
 
   useEffect(() => {
@@ -77,8 +76,8 @@ const AdminReviewsPage = () => {
       setReviewEmployeeId("");
       alert("Review created (open). Assign reviewers next.");
       refreshAdminData();
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not create review"));
+    } catch {
+      alert("Could not create review.");
     }
   };
 
@@ -97,8 +96,8 @@ const AdminReviewsPage = () => {
       setAssignReviewerId("");
       alert("Reviewer assigned");
       refreshAdminData();
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not assign reviewer"));
+    } catch {
+      alert("Could not assign reviewer (check they exist in directory).");
     }
   };
 
@@ -107,8 +106,8 @@ const AdminReviewsPage = () => {
       await patchReview(id, currentlyOpen ? "closed" : "open", "admin").unwrap();
       alert(currentlyOpen ? "Review closed" : "Review reopened");
       refreshAdminData();
-    } catch (err) {
-      alert(apiErrorMessage(err, "Could not update review"));
+    } catch {
+      alert("Could not change review open/closed status.");
     }
   };
 
