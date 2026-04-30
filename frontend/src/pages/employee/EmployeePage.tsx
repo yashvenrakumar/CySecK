@@ -101,12 +101,12 @@ const EmployeePage = () => {
 
   return (
     <section className="page-card">
-      <h1 className="page-title">My feedback</h1>
+      <h1 className="page-title">feedback</h1>
      
 
       <div className="panel-soft">
         <div>
-          <label className="label-main">You are (giving feedback)</label>
+          <label className="label-main">giving feedback</label>
           <select
             className="input-basic input-max"
             value={employeeId}
@@ -155,7 +155,7 @@ const EmployeePage = () => {
           </select>
           {!employeeId && <p className="small-note">Select yourself first.</p>}
           {employeeId && pendingReviews.length === 0 && (
-            <p className="small-note">Ask admin to assign you on open review.</p>
+            <p className="small-note">Ask admin to assign</p>
           )}
           {employeeId && selectedReview && revieweeForSelected && (
             <p className="small-note text-open">
@@ -185,11 +185,11 @@ const EmployeePage = () => {
         )}
       </div>
 
-      <h2 className="section-title">Pending for you (overview)</h2>
+      <h2 className="section-title">Pending</h2>
       {!employeeId ? (
-        <p className="empty-note">Select yourself above to load reviews assigned to you.</p>
+        <p className="empty-note">Select yourself above  </p>
       ) : pendingReviews.length === 0 ? (
-        <p className="empty-note">No pending reviews right now.</p>
+        <p className="empty-note">No pending review</p>
       ) : (
         <ul className="list-basic">
           {pendingReviews.map((review) => {
@@ -210,7 +210,7 @@ const EmployeePage = () => {
 
       {employeeId && (
         <div className="panel-top-border">
-          <h2 className="section-title">Feedback you submitted</h2>
+          <h2 className="section-title">submitted</h2>
           <p className="page-subtitle">
             You ({currentUser?.name ?? "…"}) gave this feedback <strong>about</strong> the colleague listed.
           </p>
@@ -282,7 +282,7 @@ const EmployeePage = () => {
             {rating > 0 ? (
               <span className="small-note">{rating} / 5</span>
             ) : (
-              <span className="small-note">Tap a star to choose</span>
+              <span className="small-note"> </span>
             )}
           </div>
         </div>

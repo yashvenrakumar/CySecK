@@ -21,7 +21,7 @@ const AdminEmployeesPage = () => {
     const name = employeeName.trim();
     const email = employeeEmail.trim().toLowerCase();
     if (name.length < 2) {
-      alert("Name must be at least 2 characters.");
+      alert("Name must at least 2 char");
       return;
     }
     if (!email || !email.includes("@")) {
@@ -68,7 +68,7 @@ const AdminEmployeesPage = () => {
       cancelEdit();
       alert("Employee updated");
     } catch (err) {
-      alert(apiErrorMessage(err, "Could not update employee"));
+      alert(apiErrorMessage(err, "Could not update"));
     }
   };
 
