@@ -33,7 +33,6 @@ const styles: Record<string, CSSProperties> = {
   },
   employeeBox: {
     padding: "20px 13px 17px 19px",
-    borderColor: "#b7d7c8",
     background: "#f2fcf7",
   },
   h2: {
@@ -74,7 +73,6 @@ const styles: Record<string, CSSProperties> = {
     padding: "13px 11px 9px 9px",
   },
   cardEmp: {
-    borderColor: "#9cc3ab",
     marginTop: "4px",
     padding: "11px 11px 13px 14px",
   },
@@ -99,8 +97,8 @@ const HomePage = () => {
   return (
     <div style={styles.wrap}>
       <div style={styles.top}>
-        <h1 style={styles.title}>Performence Portal</h1>
-        <p style={styles.sub}> reviws and   feedbak.</p>
+        <h1 style={styles.title}>Performence</h1>
+        <p style={styles.sub}> reviws  feedbak.</p>
       </div>
 
       <div style={styles.grid}>

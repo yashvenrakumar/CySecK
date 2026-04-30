@@ -11,7 +11,7 @@
 
 .form-block { max-width: 620px; margin-bottom: 20px; display: grid; gap: 8px; }
 .form-top-border { padding-top: 14px; }
-.input-basic { width: 100%; box-sizing: border-box; border: none; padding: 8px 10px; font-size: 14px; outline: none; }
+.input-basic { width: 100%; box-sizing: border-box; border: none; padding: 8px 10px; font-size: 14px; }
 .input-basic:disabled { opacity: 0.6; }
 .input-max { max-width: 640px; }
 .textarea-basic { min-height: 100px; resize: vertical; }

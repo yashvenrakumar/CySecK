@@ -1,16 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
-import Rating from "@mui/material/Rating";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { clearEmployeeIdentity, setEmployeeId } from "../../features/session/sessionSlice";
 import { useEmployees, useFeedbacks, useReviews } from "../../hooks";
 import { apiErrorMessage } from "../../shared/api/errorMessage";
 
 const COMMENT_MIN = 2;
 
 const EmployeePage = () => {
-  const dispatch = useAppDispatch();
-  const employeeId = useAppSelector((s) => s.session?.employeeId ?? "");
+  const [employeeId, setEmployeeId] = useState("");
   const { employees, getEmployees } = useEmployees();
   const { myFeedbacks, getFeedbacksForReviewer } = useFeedbacks();
   const { pendingReviews, getPendingReviews, postReviewFeedback } = useReviews();
@@ -39,11 +35,11 @@ const EmployeePage = () => {
   useEffect(() => {
     if (!employeeId || employees.length === 0) return;
     if (!employees.some((e) => e.id === employeeId)) {
-      dispatch(clearEmployeeIdentity());
+      setEmployeeId("");
       setSelectedReviewId("");
       alert("Selected reviewer is no longer in the directory. Choose again.");
     }
-  }, [employees, employeeId, dispatch]);
+  }, [employees, employeeId]);
 
   useEffect(() => {
     if (!employeeId) return;
@@ -117,10 +113,10 @@ const EmployeePage = () => {
             onChange={(e) => {
               const v = e.target.value;
               if (!v) {
-                dispatch(clearEmployeeIdentity());
+                setEmployeeId("");
                 setSelectedReviewId("");
               } else {
-                dispatch(setEmployeeId(v));
+                setEmployeeId(v);
               }
             }}
           >
@@ -179,7 +175,7 @@ const EmployeePage = () => {
               type="button"
               className="btn-outline btn-tiny"
               onClick={() => {
-                dispatch(clearEmployeeIdentity());
+                setEmployeeId("");
                 setSelectedReviewId("");
               }}
             >
@@ -272,13 +268,15 @@ const EmployeePage = () => {
         <div className="stack-1">
           <span className="label-main">Rating (1–5 stars)</span>
           <div className="row-gap-2">
-            <Rating
-              name="feedback-rating"
-              value={rating}
-              onChange={(_, value) => setRating(value ?? 0)}
+            <input
+              type="number"
+              min={1}
               max={5}
-              precision={1}
-              size="large"
+              step={1}
+              className="input-basic"
+              style={{ width: "90px" }}
+              value={rating === 0 ? "" : rating}
+              onChange={(e) => setRating(Number(e.target.value) || 0)}
               disabled={!formEnabled}
             />
             {rating > 0 ? (
