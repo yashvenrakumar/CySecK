@@ -120,7 +120,7 @@ const EmployeePage = () => {
               }
             }}
           >
-            <option value="">— Select current employee —</option>
+            <option value="">— Select current</option>
             {employeeOptions.map((emp) => (
               <option key={emp.id} value={emp.id}>
                 {emp.name} — {emp.email}
@@ -128,7 +128,7 @@ const EmployeePage = () => {
             ))}
           </select>
           {employees.length === 0 && (
-            <p className="small-note">Loading directory…</p>
+            <p className="small-note">Loading</p>
           )}
         </div>
 
@@ -153,7 +153,7 @@ const EmployeePage = () => {
               );
             })}
           </select>
-          {!employeeId && <p className="small-note">Select yourself first.</p>}
+          {!employeeId && <p className="small-note">Select yourself</p>}
           {employeeId && pendingReviews.length === 0 && (
             <p className="small-note">Ask admin to assign</p>
           )}
@@ -169,7 +169,7 @@ const EmployeePage = () => {
         {currentUser && (
           <div className="panel-green row-split">
             <span>
-              Reviewer: <strong>{currentUser.name}</strong> · {currentUser.email}
+              reviewer: <strong>{currentUser.name}</strong> · {currentUser.email}
             </span>
             <button
               type="button"
@@ -187,7 +187,7 @@ const EmployeePage = () => {
 
       <h2 className="section-title">Pending</h2>
       {!employeeId ? (
-        <p className="empty-note">Select yourself above  </p>
+        <p className="empty-note">Select yourself   </p>
       ) : pendingReviews.length === 0 ? (
         <p className="empty-note">No pending review</p>
       ) : (
@@ -212,10 +212,10 @@ const EmployeePage = () => {
         <div className="panel-top-border">
           <h2 className="section-title">submitted</h2>
           <p className="page-subtitle">
-            You ({currentUser?.name ?? "…"}) gave this feedback <strong>about</strong> the colleague listed.
+            You ({currentUser?.name ?? "…"}) gave  feedback.
           </p>
           {myFeedbacks.length === 0 ? (
-            <p className="empty-note">No submissions yet for your account.</p>
+            <p className="empty-note">No submissions </p>
           ) : (
             <div className="table-wrap">
               <table className="table-basic table-medium">

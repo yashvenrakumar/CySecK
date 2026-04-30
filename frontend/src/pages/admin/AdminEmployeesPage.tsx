@@ -94,9 +94,9 @@ const AdminEmployeesPage = () => {
 
   return (
     <section className="page-card">
-      <h1 className="page-title">Employees</h1>
+      <h1 className="page-title">employees</h1>
       
-      <h2 className="section-title">Add employee</h2>
+      <h2 className="section-title">add employee</h2>
       <form onSubmit={submitEmployee} className="form-block">
         <input
           className="input-basic"
@@ -112,7 +112,7 @@ const AdminEmployeesPage = () => {
           onChange={(e) => setEmployeeEmail(e.target.value)}
         />
         <button type="submit" className="btn-dark">
-          Add employee
+          Add
         </button>
       </form>
 

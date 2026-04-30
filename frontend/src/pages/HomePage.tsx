@@ -97,26 +97,26 @@ const HomePage = () => {
   return (
     <div style={styles.wrap}>
       <div style={styles.top}>
-        <h1 style={styles.title}>Performence</h1>
-        <p style={styles.sub}> reviws  feedbak.</p>
+        <h1 style={styles.title}>performance</h1>
+        <p style={styles.sub}> reviws  feedbak</p>
       </div>
 
       <div style={styles.grid}>
         <section style={{ ...styles.box, ...styles.adminBox }}>
-          <h2 style={styles.h2}>For adminstrators</h2>
+          <h2 style={styles.h2}>For adminstrator</h2>
           
           <div style={styles.row}>
             <Link to="/admin/employees"  >
               <div style={styles.cardText}>
                 <h3 style={styles.h3}>Employees</h3>
-                <p style={styles.p}>View, add, edit, remove and promote.</p>
+                <p style={styles.p}>View, add, edit, remove</p>
               </div>
               <span style={styles.arrow}>{">>"}</span>
             </Link>
             <Link to="/admin/reviews"  >
               <div style={styles.cardText}>
                 <h3 style={styles.h3}>Reviews</h3>
-                <p style={styles.p}>Create, assign, close and check feedback.</p>
+                <p style={styles.p}>Create, assign, close and check feedback</p>
               </div>
               <span style={styles.arrow}>{">>"}</span>
             </Link>
@@ -124,12 +124,12 @@ const HomePage = () => {
         </section>
 
         <section style={{ ...styles.box, ...styles.employeeBox }}>
-          <h2 style={{ ...styles.h2, ...styles.h2Emp }}>For employees</h2>
+          <h2 style={{ ...styles.h2, ...styles.h2Emp }}>employees</h2>
           
           <Link to="/employee" >
             <div style={styles.cardText}>
-              <h3 style={styles.h3}>My feedback</h3>
-              <p style={styles.p}>Pending reviws and your old submisions.</p>
+              <h3 style={styles.h3}>feedback</h3>
+              <p style={styles.p}>pending reviws submisions</p>
             </div>
             <span style={styles.arrow}>{">>"}</span>
           </Link>

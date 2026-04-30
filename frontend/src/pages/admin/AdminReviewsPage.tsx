@@ -114,13 +114,13 @@ const AdminReviewsPage = () => {
 
   return (
     <section className="page-card">
-      <h1 className="page-title">Performance reviews</h1>
+      <h1 className="page-title">Performance</h1>
       
 
       <h2 className="section-title">New review</h2>
       <form onSubmit={submitReview} className="form-block">
         <label className="label-small" htmlFor="review-subject">
-          Employee being reviewed
+          Employee reviewed
         </label>
         <select
           id="review-subject"
@@ -146,7 +146,7 @@ const AdminReviewsPage = () => {
         </button>
       </form>
 
-      <h3 className="section-subtitle">Assign peer reviewer</h3>
+      <h3 className="section-subtitle">Assign reviewer</h3>
     
       <form onSubmit={submitAssign} className="form-block form-top-border">
         <select
@@ -157,7 +157,7 @@ const AdminReviewsPage = () => {
             setAssignReviewerId("");
           }}
         >
-          <option value="">Select review</option>
+          <option value="">Select</option>
           {reviews.map((r) => {
             const subject = employees.find((e) => e.id === r.employeeId);
             return (
@@ -191,7 +191,7 @@ const AdminReviewsPage = () => {
         </button>
       </form>
 
-      <h3 className="section-subtitle">All reviews</h3>
+      <h3 className="section-subtitle">All review</h3>
       <ul className="list-basic">
         {reviews.map((r) => {
           const subject = employees.find((e) => e.id === r.employeeId);
@@ -228,7 +228,7 @@ const AdminReviewsPage = () => {
       <h3 className="section-subtitle">Feedback log  </h3>
       
       {adminFeedbacks.length === 0 ? (
-        <p className="empty-note">No feedback submitted yet.</p>
+        <p className="empty-note">No feedback submitted</p>
       ) : (
         <div className="table-wrap">
           <table className="table-basic">
