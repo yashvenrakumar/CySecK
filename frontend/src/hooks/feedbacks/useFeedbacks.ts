@@ -1,6 +1,17 @@
 import { useCallback, useState } from "react";
-import { api, withRole } from "../../shared/api/client";
-import type { ApiResponse, FeedbackEnriched } from "../../shared/types";
+import { API_PREFIX } from "../../shared/config/env";
+import type { ApiResponse, FeedbackEnriched, Role } from "../../shared/types";
+
+async function readJson(res: Response) {
+  return (await res.json().catch(() => ({}))) as { message?: string };
+}
+
+function roleHeaders(role: Role) {
+  return {
+    "Content-Type": "application/json",
+    "x-role": role,
+  };
+}
 
 export function useFeedbacks() {
   // two lists: admin sees all, employee page only "mine"
@@ -8,8 +19,12 @@ export function useFeedbacks() {
   const [myFeedbacks, setMyFeedbacks] = useState<FeedbackEnriched[]>([]);
 
   const getAllFeedbacks = useCallback(() => {
-    const p = api.get<ApiResponse<FeedbackEnriched[]>>("/feedbacks", withRole("admin")).then((res) => {
-      const list = res.data?.data;
+    const p = fetch(`${API_PREFIX}/feedbacks`, {
+      headers: roleHeaders("admin"),
+    }).then(async (res) => {
+      const json = (await readJson(res)) as ApiResponse<FeedbackEnriched[]>;
+      if (!res.ok) throw new Error(json?.message || "Could not load feedback log");
+      const list = json?.data;
       const rows = Array.isArray(list) ? list : [];
       setAdminFeedbacks(rows);
       return rows;
@@ -18,17 +33,17 @@ export function useFeedbacks() {
   }, []);
 
   const getFeedbacksForReviewer = useCallback((reviewerId: string) => {
-    const p = api
-      .get<ApiResponse<FeedbackEnriched[]>>("/feedbacks", {
-        ...withRole("employee"),
-        params: { reviewerId },
-      })
-      .then((res) => {
-        const list = res.data?.data;
+    const q = new URLSearchParams({ reviewerId }).toString();
+    const p = fetch(`${API_PREFIX}/feedbacks?${q}`, {
+      headers: roleHeaders("employee"),
+    }).then(async (res) => {
+        const json = (await readJson(res)) as ApiResponse<FeedbackEnriched[]>;
+        if (!res.ok) throw new Error(json?.message || "Could not load my feedbacks");
+        const list = json?.data;
         const rows = Array.isArray(list) ? list : [];
         setMyFeedbacks(rows);
         return rows;
-      });
+    });
     return { unwrap: () => p };
   }, []);
 
